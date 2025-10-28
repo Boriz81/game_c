@@ -18,7 +18,12 @@ void init_game() {
 
 void update_game() {
     // Обработка ввода
-    int ch = getchar();
+    char ch;
+    initscr();
+    cbreak();
+    noecho();
+    timeout(-1);
+    ch = getch();
     if (ch != ERR) {
 	switch(ch) {
 	    case 'w' : player.y--; break;
@@ -34,6 +39,7 @@ void update_game() {
 	if (player.y < 0) player.y = 0;
 	if (player.y >= MAP_HEIGHT) player.y = MAP_HEIGHT - 1;
     }
+    endwin();
 }
 
 void render_game() {
