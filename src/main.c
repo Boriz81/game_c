@@ -3,6 +3,7 @@
 
 int main() {
     init_game();
+    render_game();
 
     while (is_game_running()) {
 	update_game();
