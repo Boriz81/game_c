@@ -1,12 +1,11 @@
-CC = gcc
 CFLAGS = -Wall -Wextra
-TARGET = my_game
-SRC = src/main.c src/game.c
+LIBS = -lncurses
+CC = gcc
 
-all: $(TARGET)
 
-$(TARGET): $(SRC)
-	$(CC) $(CFLAGS) -o $@ $^
+my_game: src/main.c src/game.c
+	$(CC) $(CFLAGS) -o my_game src/main.c src/game.c $(LIBS)
+
 
 clean:
-	rm -f $(TARGET)
+	rm -f my_game
