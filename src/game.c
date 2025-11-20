@@ -52,7 +52,7 @@ void render_game() {
 	    if (x == player.x && y == player.y) {
 		printf("@"); //игрок
 	    } else {
-	        printf(".");
+	        printf(" ");
 	    }
 	}
 	printf("\n");

@@ -4,8 +4,8 @@
 #include <stdbool.h>
 
 // Определение констант
-#define MAP_WIDTH 20
-#define MAP_HEIGHT 10
+#define MAP_WIDTH 50
+#define MAP_HEIGHT 20
 
 // Объявление структур
 typedef struct {
