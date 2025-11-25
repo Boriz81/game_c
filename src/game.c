@@ -8,11 +8,14 @@
 #include <unistd.h>
 // Глобальные переменные игры
 Player player;
+Target target;
 bool game_running;
 
 void init_game() {
     player.x = MAP_WIDTH / 2;
     player.y = MAP_HEIGHT / 2;
+    target.x = 5;
+    target.y = 10;
     game_running = true;
 }
 
@@ -47,8 +50,12 @@ void render_game() {
     // Для виндовс system("cls")
     
     // Рендеринг карты
+    
     for (int y = 0; y < MAP_HEIGHT; y++) {
 	for (int x = 0; x < MAP_WIDTH; x++) {
+        //if (x == target.x && y == target.y) {
+          //  printf("0");
+        //}
 	    if (x == player.x && y == player.y) {
 		printf("@"); //игрок
 	    } else {

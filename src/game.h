@@ -13,6 +13,11 @@ typedef struct {
     int y;
 } Player;
 
+typedef struct {
+    int x;
+    int y;
+} Target;
+
 // Объявление функций
 void init_game();
 void update_game();
