@@ -53,9 +53,7 @@ void render_game() {
     
     for (int y = 0; y < MAP_HEIGHT; y++) {
 	for (int x = 0; x < MAP_WIDTH; x++) {
-        //if (x == target.x && y == target.y) {
-          //  printf("0");
-        //}
+        if (x == target.x && y == target.y) printf("0");
 	    if (x == player.x && y == player.y) {
 		printf("@"); //игрок
 	    } else {

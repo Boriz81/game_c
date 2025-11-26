@@ -12,7 +12,6 @@ typedef struct {
     int x;
     int y;
 } Player;
-
 typedef struct {
     int x;
     int y;
