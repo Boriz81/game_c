@@ -27,4 +27,6 @@ void update_game();
 void render_game();
 bool is_game_running();
 
+extern char wp;
+
 #endif // GAME_H
