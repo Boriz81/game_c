@@ -16,6 +16,10 @@ typedef struct {
     int x;
     int y;
 } Target;
+typedef struct {
+    int x;
+    int y;
+} Weapon;
 
 // Объявление функций
 void init_game();
