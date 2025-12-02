@@ -24,11 +24,12 @@ void init_game() {
 
 char wp = '-';
 
-void update_game(int key) {
+void update_game() {
     // Обработка ввода
 
     char ch;
     
+    //char seq[3];
 
     initscr();
     keypad(stdscr, TRUE);
@@ -53,18 +54,14 @@ void update_game(int key) {
         if ((player.x == target.x) && (player.y == target.y)) game_running = false;
     }
 
-    
-        switch(key) {
-            case KEY_UP: 
-            case KEY_DOWN: 
-                wp = '|'; 
-                break;
-            case KEY_LEFT: 
-            case KEY_RIGHT:
-                wp = '-';
-                break;
+    /*if (seq[0] == '[') {
+        switch(seq[1]) {
+            case 'A' : wp = '|'; break; 
+            case 'B' : wp = '|'; break;
+            case 'C' : wp = '-'; break;
+            case 'D' : wp = '-'; break;
         }
-    
+    }*/
 
     
 
