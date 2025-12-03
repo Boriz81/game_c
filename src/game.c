@@ -19,6 +19,13 @@ void init_game() {
     game_running = true;
 }
 
+/*void fire_target(int x, int y) {
+    if (player.x && player.y) {
+        printf("----------");
+    }    
+}
+*/
+
 
 void update_game() {
     // Обработка ввода
@@ -37,6 +44,8 @@ void update_game() {
 	        case 'a' : player.x--; break;
 	        case 'd' : player.x++; break;
 	        case 'q' : game_running = false; break;
+
+            //case 'f' : fire_target(x, y); break;
 	    }
 
 	// Проверка границ
