@@ -16,17 +16,11 @@ typedef struct {
     int x;
     int y;
 } Target;
-typedef struct {
-    int x;
-    int y;
-} Weapon;
 
 // Объявление функций
 void init_game();
 void update_game();
 void render_game();
 bool is_game_running();
-
-extern char wp;
 
 #endif // GAME_H

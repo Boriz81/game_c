@@ -9,7 +9,6 @@
 // Глобальные переменные игры
 Player player;
 Target target;
-Weapon weapon;
 bool game_running;
 
 void init_game() {
@@ -17,22 +16,16 @@ void init_game() {
     player.y = MAP_HEIGHT / 2;
     target.x = 2;
     target.y = 2;
-    weapon.x = 4;
-    weapon.y = 4;
     game_running = true;
 }
 
-char wp = '-';
 
 void update_game() {
     // Обработка ввода
 
     char ch;
-    
-    //char seq[3];
-
+        
     initscr();
-    keypad(stdscr, TRUE);
     cbreak();
     noecho();
     timeout(-1);
@@ -53,18 +46,7 @@ void update_game() {
 	    if (player.y >= MAP_HEIGHT) player.y = MAP_HEIGHT - 1;
         if ((player.x == target.x) && (player.y == target.y)) game_running = false;
     }
-
-    /*if (seq[0] == '[') {
-        switch(seq[1]) {
-            case 'A' : wp = '|'; break; 
-            case 'B' : wp = '|'; break;
-            case 'C' : wp = '-'; break;
-            case 'D' : wp = '-'; break;
-        }
-    }*/
-
     
-
     endwin();
     
 }
@@ -84,8 +66,6 @@ void render_game() {
                 printf("@");
             } else if (x == target.x && y == target.y) {
                 printf("0");
-            } else if (x == weapon.x && y == weapon.y) {
-                printf("%c", wp);
             } else {
                 printf(" ");
             }
