@@ -10,6 +10,7 @@
 Player player;
 Target target;
 bool game_running;
+bool fire_target;
 
 void init_game() {
     player.x = MAP_WIDTH / 2;
@@ -17,6 +18,7 @@ void init_game() {
     target.x = 2;
     target.y = 2;
     game_running = true;
+    fire_target = true;
 }
 
 /*void fire_target(int x, int y) {
@@ -39,13 +41,13 @@ void update_game() {
     ch = getch();
     if (ch != ERR) {
 	    switch(ch) {
-	        case 'w' : player.y--; break;
-	        case 's' : player.y++; break;
-	        case 'a' : player.x--; break;
-	        case 'd' : player.x++; break;
+	        case 'w' : player.y--; fire_target = true; break;
+	        case 's' : player.y++; fire_target = true; break;
+	        case 'a' : player.x--; fire_target = true; break;
+	        case 'd' : player.x++; fire_target = true; break;
 	        case 'q' : game_running = false; break;
 
-            //case 'f' : fire_target(x, y); break;
+            case 'f' : fire_target = false; break;
 	    }
 
 	// Проверка границ
@@ -72,7 +74,12 @@ void render_game() {
         printf("#"); // левая граница
         for (int x = 0; x < MAP_WIDTH; x++) {
             if (x == player.x && y == player.y) {
-                printf("@");
+                if(fire_target) {
+                    printf("@"); 
+                } else { 
+                    printf("-");
+                }
+                
             } else if (x == target.x && y == target.y) {
                 printf("0");
             } else {
