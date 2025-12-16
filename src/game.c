@@ -11,6 +11,7 @@ Player player;
 Target target;
 bool game_running;
 bool fire_target;
+bool hit;
 
 void init_game() {
     player.x = MAP_WIDTH / 2;
@@ -19,6 +20,7 @@ void init_game() {
     target.y = 2;
     game_running = true;
     fire_target = true;
+    hit = false;
 }
 
 /*void fire_target(int x, int y) {
@@ -41,13 +43,13 @@ void update_game() {
     ch = getch();
     if (ch != ERR) {
 	    switch(ch) {
-	        case 'w' : player.y--; fire_target = true; break;
-	        case 's' : player.y++; fire_target = true; break;
-	        case 'a' : player.x--; fire_target = true; break;
-	        case 'd' : player.x++; fire_target = true; break;
+	        case 'w' : player.y--; fire_target = true; hit = false; break;
+	        case 's' : player.y++; fire_target = true; hit = false; break;
+	        case 'a' : player.x--; fire_target = true; hit = false; break;
+	        case 'd' : player.x++; fire_target = true; hit = false; break;
 	        case 'q' : game_running = false; break;
 
-            case 'f' : fire_target = false; break;
+            case 'f' : fire_target = false; hit = true; break;
 	    }
 
 	// Проверка границ
@@ -81,7 +83,16 @@ void render_game() {
                 }
                 
             } else if (x == target.x && y == target.y) {
-                printf("0");
+                if ((x == player.x) == (x == target.x)) {
+                    if(hit) {
+                        printf("*");
+                    } else {                    
+                        printf("0");
+                    }
+                } else {
+                    printf("0");
+                }
+                                
             } else {
                 printf(" ");
             }
