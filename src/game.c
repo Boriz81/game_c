@@ -1,16 +1,17 @@
+// #include <conio.h> Для getch() (Windows)
+// Для Linux можно использовать 
+
 #include "game.h"
 #include <stdio.h>
 #include <stdlib.h>
-// #include <conio.h> // Для getch() (Windows)
-
-// Для Linux можно использовать 
 #include <ncurses.h> // или #include <unistd.h>
 #include <unistd.h>
+
 // Глобальные переменные игры
+
 Player player;
 Target target;
 bool game_running;
-bool fire_target;
 bool hit;
 
 void init_game() {
@@ -19,21 +20,11 @@ void init_game() {
     target.x = 2;
     target.y = 2;
     game_running = true;
-    fire_target = true;
     hit = false;
 }
 
-/*void fire_target(int x, int y) {
-    if (player.x && player.y) {
-        printf("----------");
-    }    
-}
-*/
-
-
 void update_game() {
     // Обработка ввода
-
     char ch;
         
     initscr();
@@ -43,13 +34,12 @@ void update_game() {
     ch = getch();
     if (ch != ERR) {
 	    switch(ch) {
-	        case 'w' : player.y--; fire_target = true; hit = false; break;
-	        case 's' : player.y++; fire_target = true; hit = false; break;
-	        case 'a' : player.x--; fire_target = true; hit = false; break;
-	        case 'd' : player.x++; fire_target = true; hit = false; break;
+	        case 'w' : player.y--; hit = false; break;
+	        case 's' : player.y++; hit = false; break;
+	        case 'a' : player.x--; hit = false; break;
+	        case 'd' : player.x++; hit = false; break;
 	        case 'q' : game_running = false; break;
-
-            case 'f' : fire_target = false; hit = true; break;
+            case 'f' : hit = true; break;
 	    }
 
 	// Проверка границ
@@ -76,16 +66,13 @@ void render_game() {
         printf("#"); // левая граница
         for (int x = 0; x < MAP_WIDTH; x++) {
             if (x == player.x && y == player.y) {
-                if(fire_target) {
-                    printf("@"); 
-                } else { 
-                    printf("-");
-                }
-                
+                    printf("@");                
             } else if (x == target.x && y == target.y) {
-                if ((x == player.x) == (x == target.x)) {
+                if ( ((x == player.x) == (x == target.x)) || ((y == player.y) == (y == target.y)) ) {
                     if(hit) {
                         printf("*");
+                        target.x = 15;
+                        target.y = 19;
                     } else {                    
                         printf("0");
                     }
