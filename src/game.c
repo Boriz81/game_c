@@ -6,6 +6,11 @@
 #include <stdlib.h>
 #include <ncurses.h> // или #include <unistd.h>
 #include <unistd.h>
+#include <time.h>
+
+#define BRIGHT_RED    "\033[91m"
+#define BRIGHT_GREEN  "\033[92m"
+#define RESET         "\033[0m"
 
 // Глобальные переменные игры
 
@@ -17,8 +22,8 @@ bool hit;
 void init_game() {
     player.x = MAP_WIDTH / 2;
     player.y = MAP_HEIGHT / 2;
-    target.x = 2;
-    target.y = 2;
+    target.x = rand() % 50;
+    target.y = rand() % 20;
     game_running = true;
     hit = false;
 }
@@ -26,6 +31,9 @@ void init_game() {
 void update_game() {
     // Обработка ввода
     char ch;
+    
+    // Инициализация генератора текущим временем
+    srand(time(NULL));
         
     initscr();
     cbreak();
@@ -70,14 +78,15 @@ void render_game() {
             } else if (x == target.x && y == target.y) {
                 if ( ((x == player.x) == (x == target.x)) || ((y == player.y) == (y == target.y)) ) {
                     if(hit) {
-                        printf("*");
-                        target.x = 15;
-                        target.y = 19;
+                        target.x = rand() % 50;
+                        target.y = rand() % 20;                        
+                        printf(BRIGHT_RED "*" RESET);                        
                     } else {                    
-                        printf("0");
+                        printf(BRIGHT_GREEN "0" RESET);
                     }
                 } else {
-                    printf("0");
+                    
+                    printf(BRIGHT_GREEN "0" RESET);
                 }
                                 
             } else {
