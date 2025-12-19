@@ -65,6 +65,9 @@ void update_game() {
 void render_game() {
     system("clear");
     
+    int count = 0;
+    int *ptr = &count;
+    
     // Верхняя граница
     for (int x = 0; x < MAP_WIDTH + 2; x++) printf("#");
     printf("\n");
@@ -80,7 +83,8 @@ void render_game() {
                     if(hit) {
                         target.x = rand() % 50;
                         target.y = rand() % 20;                        
-                        printf(BRIGHT_RED "*" RESET);                        
+                        printf(BRIGHT_RED "*" RESET);
+                        (*ptr)++;                        
                     } else {                    
                         printf(BRIGHT_GREEN "0" RESET);
                     }
@@ -99,7 +103,9 @@ void render_game() {
     // Нижняя граница
     for (int x = 0; x < MAP_WIDTH + 2; x++) printf("#");
     printf("\n");
-    
+
+    printf("Hit: %d\n", count);    
+
     printf("Controls: WASD to move, Q to quit\n");
 }
 
