@@ -18,6 +18,7 @@ Player player;
 Target target;
 bool game_running;
 bool hit;
+int count;
 
 void init_game() {
     player.x = MAP_WIDTH / 2;
@@ -65,7 +66,7 @@ void update_game() {
 void render_game() {
     system("clear");
     
-    int count = 0;
+    
     int *ptr = &count;
     
     // Верхняя граница
