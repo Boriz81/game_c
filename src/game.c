@@ -8,9 +8,15 @@
 #include <unistd.h>
 #include <time.h>
 
-#define BRIGHT_RED    "\033[91m"
-#define BRIGHT_GREEN  "\033[92m"
-#define RESET         "\033[0m"
+#define BRIGHT_BLACK    "\033[90m"
+#define BRIGHT_RED      "\033[91m"
+#define BRIGHT_GREEN    "\033[92m"
+#define BRIGHT_YELLOW   "\033[93m"
+#define BRIGHT_BLUE     "\033[94m"
+#define BRIGHT_MAGENTA  "\033[95m"
+#define BRIGHT_CYAN     "\033[96m"
+#define BRIGHT_WHITE    "\033[97m"
+#define RESET           "\033[0m"
 
 // Глобальные переменные игры
 
@@ -78,7 +84,9 @@ void render_game() {
         printf("#"); // левая граница
         for (int x = 0; x < MAP_WIDTH; x++) {
             if (x == player.x && y == player.y) {
-                    printf("@");                
+                if (count >= 5) {
+                    printf(BRIGHT_BLUE "@" RESET);
+                } else { printf(RESET "@"); }
             } else if (x == target.x && y == target.y) {
                 if ( ((x == player.x) == (x == target.x)) || ((y == player.y) == (y == target.y)) ) {
                     if(hit) {
@@ -89,6 +97,7 @@ void render_game() {
                     } else {                    
                         printf(BRIGHT_GREEN "0" RESET);
                     }
+                    
                 } else {
                     
                     printf(BRIGHT_GREEN "0" RESET);
