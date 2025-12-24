@@ -20,6 +20,10 @@
 
 // Глобальные переменные игры
 
+void menu_game() {
+    
+}
+
 Player player;
 Target target;
 bool game_running;

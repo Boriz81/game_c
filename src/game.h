@@ -18,6 +18,7 @@ typedef struct {
 } Target;
 
 // Объявление функций
+void menu_game();
 void init_game();
 void update_game();
 void render_game();
