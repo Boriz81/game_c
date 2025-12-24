@@ -2,9 +2,7 @@
 #include <stdio.h>
 
 int main() {
-    init_game();
-    render_game();
-
+    menu_game();
     while (is_game_running()) {
 	update_game();
 	render_game();

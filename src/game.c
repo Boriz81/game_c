@@ -1,5 +1,5 @@
 // #include <conio.h> Для getch() (Windows)
-// Для Linux можно использовать 
+// Для Linux можно использовать
 
 #include "game.h"
 #include <stdio.h>
@@ -21,7 +21,10 @@
 // Глобальные переменные игры
 
 void menu_game() {
-    
+    printf("Welcome to my game!");
+    init_game();
+    render_game();
+
 }
 
 Player player;
