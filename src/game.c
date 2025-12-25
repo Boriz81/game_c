@@ -19,12 +19,19 @@
 #define RESET           "\033[0m"
 
 // Глобальные переменные игры
-
+int start;
 void menu_game() {
     printf("Welcome to my game!");
-    init_game();
-    render_game();
-
+    scanf("%d", &start);
+    if (start == 1) {
+        printf("w - up/n s - down/n a - left/n d - right");        
+        init_game();
+        
+        while (is_game_running()) {
+    	    update_game();
+    	    render_game();
+        }
+    }
 }
 
 Player player;
@@ -46,6 +53,8 @@ void update_game() {
     // Обработка ввода
     char ch;
     
+    
+
     // Инициализация генератора текущим временем
     srand(time(NULL));
         
@@ -78,7 +87,6 @@ void update_game() {
 
 void render_game() {
     system("clear");
-    
     
     int *ptr = &count;
     
