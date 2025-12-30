@@ -21,10 +21,12 @@
 // Глобальные переменные игры
 int start;
 void menu_game() {
-    printf("Welcome to my game!");
+    printf("Welcome to my game!\n");
+    printf("w - up s - down a - left d - right\n");
+    printf("Нажмите 1 затем энтер для старта игры\n");    
     scanf("%d", &start);
     if (start == 1) {
-        printf("w - up/n s - down/n a - left/n d - right");        
+                
         init_game();
         
         while (is_game_running()) {
