@@ -20,6 +20,20 @@
 
 // Глобальные переменные игры
 int start;
+
+void timer_start(Timer *timer) {
+    timer->start_time = time(NULL);
+}
+
+double timer_get_elapsed(Timer *timer) {
+    timer->elapsed_seconds = difftime(time(NULL),timer->start_time);
+    return timer->elapsed_seconds;
+}
+
+int timer_is_time_up(Timer *timer, double limit_seconds) {
+    return timer_get_elapsed(timer) >= limit_seconds;
+}
+
 void menu_game() {
     printf("Welcome to my game!\n");
     printf("w - up s - down a - left d - right\n");
@@ -28,8 +42,20 @@ void menu_game() {
     if (start == 1) {
                 
         init_game();
+
+        Timer game_timer;
+        timer_start(&game_timer);
         
         while (is_game_running()) {
+
+            double elapsed = timer_get_elapsed(&game_timer);
+            printf("Time: %.2f seconds\n", elapsed);
+
+            if (timer_is_time_up(&game_timer, 60.0)) {
+                printf("Time's up!\n");
+                break;
+            }
+
     	    update_game();
     	    render_game();
         }
