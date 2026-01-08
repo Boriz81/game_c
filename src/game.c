@@ -7,6 +7,7 @@
 #include <ncurses.h> // или #include <unistd.h>
 #include <unistd.h>
 #include <time.h>
+#include <string.h>
 
 #define BRIGHT_BLACK    "\033[90m"
 #define BRIGHT_RED      "\033[91m"
@@ -20,6 +21,7 @@
 
 // Глобальные переменные игры
 int start;
+// char[333] name;
 
 void timer_start(Timer *timer) {
     timer->start_time = time(NULL);
@@ -34,32 +36,28 @@ int timer_is_time_up(Timer *timer, double limit_seconds) {
     return timer_get_elapsed(timer) >= limit_seconds;
 }
 
-void menu_game() {
-    printf("Welcome to my game!\n");
-    printf("w - up s - down a - left d - right\n");
-    printf("Нажмите 1 затем энтер для старта игры\n");    
-    scanf("%d", &start);
-    if (start == 1) {
+void start_game() {
+    
                 
-        init_game();
+    init_game();
 
-        Timer game_timer;
-        timer_start(&game_timer);
+    Timer game_timer;
+    timer_start(&game_timer);
         
-        while (is_game_running()) {
+    while (is_game_running()) {
 
-            double elapsed = timer_get_elapsed(&game_timer);
-            printf("Time: %.2f seconds\n", elapsed);
+        double elapsed = timer_get_elapsed(&game_timer);
+        printf("Time: %.2f seconds\n", elapsed);
 
-            if (timer_is_time_up(&game_timer, 60.0)) {
-                printf("Time's up!\n");
-                break;
-            }
-
-    	    update_game();
-    	    render_game();
+        if (timer_is_time_up(&game_timer, 60.0)) {
+            printf("Time's up!\n");
+            break;
         }
+
+        update_game();
+	    render_game();
     }
+    
 }
 
 Player player;
@@ -164,4 +162,114 @@ void render_game() {
 
 bool is_game_running() {
     return game_running;
+}
+// Хэширование пароля (простейшее)
+unsigned int simpleHash(const char *str) {
+    unsigned int hash = 0;
+    while (*str) {
+        hash = (hash * 31) + *str;
+        str++;
+    }
+    return hash;
+}
+
+void saveUser(User user) {
+    FILE *file = fopen("user.dat", "ab");
+    if (file) {
+        // Сохраняем хэш пароля, а не сам пароль
+        unsigned int passHash = simpleHash(user.password);
+        fwrite(&user.username, sizeof(user.username), 1, file);
+        fwrite(&passHash, sizeof(passHash), 1, file);
+        fwrite(&user.highScore, sizeof(user.highScore), 1, file);
+        fwrite(&user.gamePlayed, sizeof(user.gamePlayed), 1, file);
+        fclose(file);
+    }
+}
+
+int findUser(const char *username, User *foundUser) {
+    FILE *file = fopen("users.dat", "rb");
+    if (!file) return 0;
+
+    User temp;
+    unsigned int storedHash;
+
+    while (fread(&temp.username, sizeof(temp.username), 1, file)) {
+        fread(&storedHash, sizeof(storedHash), 1, file);
+        fread(&temp.highScore, sizeof(temp.highScore), 1, file);
+        fread(&temp.gamePlayed, sizeof(temp.gamePlayed), 1, file);
+
+        if (strcmp(temp.username, username) == 0) {
+            *foundUser = temp;
+            // Сохраняем хэш как "пароль" для проверки
+            sprintf(foundUser->password, "%u", storedHash);
+            fclose(file);
+            return 1;
+        }
+    }
+    fclose(file);
+    return 0;
+}
+
+void registerUser() {
+    User newUser;
+
+    printf("=== РУГИСТРАЦИЯ ===\n");
+    printf("Придумайте логин: ");
+    scanf("%49s", newUser.username);
+
+    // Проверка существования
+
+    User existing;
+    if (findUser(newUser.username, &existing)) {
+        printf("Пользователь уже существует!\n");
+        return;
+    }
+
+    printf("Придумайте пароль: ");
+    scanf("%49s", newUser.password);
+
+    newUser.highScore = 0;
+    newUser.gamePlayed = 0;
+
+    saveUser(newUser);
+    printf("Регистрация успешна!\n");
+}
+
+int loginUser(User *loggedUser) {
+    char username[50];
+    char password[50];
+
+    printf("=== ВХОД ===\n");
+    printf("Логин: ");
+    scanf("%49s", username);
+
+    printf("Пароль: ");
+    scanf("%49s", password);
+
+    User found;
+    if (findUser(username, &found)) {
+        // Проверяем хэш пароля
+        unsigned int inputHash = simpleHash(password);
+        unsigned int storedHash = atoi(found.password);
+
+        if (inputHash == storedHash) {
+            *loggedUser = found;
+            strcpy(loggedUser->username, username);
+            printf("Вход выполнен! Ваш рекорд: %d\n", found.highScore);
+            return 1;
+        }
+    }
+
+    printf("Неверный логин или пароль!\n");
+    return 0;
+}
+
+// void updateScore(const char *username, int newScore) {}
+
+void showMenu() {
+    printf("\n === MENU ===\n");
+    printf("1. Enter\n");
+    printf("2. Zaregatsy\n");
+    printf("3. Sign Out\n");
+    printf("Choise: ");
 }
