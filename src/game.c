@@ -174,7 +174,7 @@ unsigned int simpleHash(const char *str) {
 }
 
 void saveUser(User user) {
-    FILE *file = fopen("user.dat", "ab");
+    FILE *file = fopen("users.dat", "ab");
     if (file) {
         // Сохраняем хэш пароля, а не сам пароль
         unsigned int passHash = simpleHash(user.password);

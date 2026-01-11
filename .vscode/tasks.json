@@ -1,0 +1,18 @@
+{
+    "tasks": [
+        {
+            "label": "Build",
+            "type": "shell",
+            "command": "make",
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "Test",
+            "type": "shell",
+            "command": "./my_game",
+            "group": "test",
+            "dependsOn": ["Build"]
+        }
+    ]
+}
