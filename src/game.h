@@ -30,7 +30,7 @@ typedef struct {
 
 // Объявление функций
 
-void start_game();
+void start_game(char *x, int *y);
 void init_game();
 void update_game();
 void render_game();

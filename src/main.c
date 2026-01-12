@@ -15,7 +15,7 @@ int main() {
                 if (loginUser(&currentUser)) {
                     loggedIn = 1;
                     // Запуск игры
-                    start_game();
+                    start_game(currentUser.username, &currentUser.highScore);
                 }
                 break;
             case 2:

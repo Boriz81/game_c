@@ -36,7 +36,7 @@ int timer_is_time_up(Timer *timer, double limit_seconds) {
     return timer_get_elapsed(timer) >= limit_seconds;
 }
 
-void start_game() {
+void start_game(char *x, int *y) {
     
                 
     init_game();
@@ -57,6 +57,8 @@ void start_game() {
         update_game();
 	    render_game();
     }
+    printf("User: %s\n", x);
+    printf("HighScore: %d\n", *y);
     
 }
 
