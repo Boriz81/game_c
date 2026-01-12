@@ -47,5 +47,4 @@ int loginUser(User *loggedUser);
 void updateScore(const char *username, int newScore);
 void showMenu();
 
-
 #endif // GAME_H

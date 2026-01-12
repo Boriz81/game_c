@@ -58,6 +58,7 @@ void start_game(char *x, int *y) {
 	    render_game();
     }
     printf("User: %s\n", x);
+    
     printf("HighScore: %d\n", *y);
     
 }
@@ -156,9 +157,9 @@ void render_game() {
     // Нижняя граница
     for (int x = 0; x < MAP_WIDTH + 2; x++) printf("#");
     printf("\n");
-
-    printf("Hit: %d\n", count);    
-
+    
+    printf("Hit: %d\n", count);
+    
     printf("Controls: WASD to move, Q to quit\n");
 }
 
