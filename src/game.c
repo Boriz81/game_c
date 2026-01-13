@@ -36,7 +36,7 @@ int timer_is_time_up(Timer *timer, double limit_seconds) {
     return timer_get_elapsed(timer) >= limit_seconds;
 }
 
-void start_game(char *x, int *y) {
+void start_game(char *username, int *highScore) {
     
                 
     init_game();
@@ -57,9 +57,16 @@ void start_game(char *x, int *y) {
         update_game();
 	    render_game();
     }
-    printf("User: %s\n", x);
-    
-    printf("HighScore: %d\n", *y);
+    printf("User: %s\n", username);
+    printf("Current HighScore: %d\n", *highScore);
+    printf("Score in this game: %d\n", count);
+
+    if (count > *highScore) {
+        printf("NEW HIGH SCORE! Old: %d, New: %d\n", *highScore, count);
+        *highScore = count;
+
+        updateScore(username, count);
+    }
     
 }
 
@@ -161,6 +168,7 @@ void render_game() {
     printf("Hit: %d\n", count);
     
     printf("Controls: WASD to move, Q to quit\n");
+    
 }
 
 bool is_game_running() {
@@ -267,12 +275,50 @@ int loginUser(User *loggedUser) {
     return 0;
 }
 
-// void updateScore(const char *username, int newScore) {}
-
 void showMenu() {
     printf("\n === MENU ===\n");
     printf("1. Enter\n");
     printf("2. Zaregatsy\n");
     printf("3. Sign Out\n");
     printf("Choise: ");
+}
+
+void updateScore(const char *username, int newScore) {
+    FILE *file = fopen("users.dat", "rb+");
+    if (!file) {
+        printf("Error: Cannot open users.dat for update\n");
+        return;
+    }
+
+    User temp;
+    unsigned int storedHash;
+    // Ищем пользователя в файле
+    while (fread(&temp.username, sizeof(temp.username), 1, file)) {
+        long current_pos = ftell(file); // Запоминаем позицию перед чтением хэша
+
+        fread(&storedHash, sizeof(storedHash), 1, file);
+        fread(&temp.highScore, sizeof(temp.highScore), 1, file);
+        fread(&temp.gamePlayed, sizeof(temp.gamePlayed), 1, file);
+
+        // Если нашли нужного пользователя
+        if (strcmp(temp.username, username) == 0) {
+            // Обновляет счет
+            temp.highScore = newScore;
+            temp.gamePlayed++;
+            
+            // Возвращаемся к позиции перед highScore
+            fseek(file, current_pos + sizeof(storedHash), SEEK_SET);
+
+            // Записываем обновление данные
+            fwrite(&temp.highScore, sizeof(temp.highScore), 1, file);
+            fwrite(&temp.gamePlayed, sizeof(temp.gamePlayed), 1, file);
+
+            printf("Score updated successfully!\n");
+            fclose(file);
+            return;
+        }
+    }
+
+    fclose(file);   
+    printf("User not found in database\n");
 }

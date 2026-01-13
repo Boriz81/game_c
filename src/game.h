@@ -8,6 +8,8 @@
 #define MAP_WIDTH 50
 #define MAP_HEIGHT 20
 
+extern int count;
+
 // Объявление структур
 typedef struct {
     int x;
@@ -30,7 +32,7 @@ typedef struct {
 
 // Объявление функций
 
-void start_game(char *x, int *y);
+void start_game(char *username, int *highScore);
 void init_game();
 void update_game();
 void render_game();
