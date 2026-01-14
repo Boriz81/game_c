@@ -21,7 +21,6 @@
 
 // Глобальные переменные игры
 int start;
-// char[333] name;
 
 void timer_start(Timer *timer) {
     timer->start_time = time(NULL);
@@ -44,21 +43,32 @@ void start_game(char *username, int *highScore) {
     Timer game_timer;
     timer_start(&game_timer);
         
+    
+        
+        
+        
+
     while (is_game_running()) {
-
+        render_game();        
         double elapsed = timer_get_elapsed(&game_timer);
+        
         printf("Time: %.2f seconds\n", elapsed);
-
+        
         if (timer_is_time_up(&game_timer, 60.0)) {
             printf("Time's up!\n");
-            break;
+            break;    
         }
-
+        
+            
         update_game();
 	    render_game();
+        
+        printf("User: %s\n", username);
+        printf("Current HighScore: %d\n", *highScore);
+        
     }
-    printf("User: %s\n", username);
-    printf("Current HighScore: %d\n", *highScore);
+        
+    
     printf("Score in this game: %d\n", count);
 
     if (count > *highScore) {
@@ -95,9 +105,10 @@ void update_game() {
     srand(time(NULL));
         
     initscr();
+    
     cbreak();
     noecho();
-    timeout(-1);
+    timeout(100);
     ch = getch();
     if (ch != ERR) {
 	    switch(ch) {
