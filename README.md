@@ -49,11 +49,12 @@
 
 ## Windows (с MinGW)
 
-# 1. Установите MinGW-w64 или Cygwin
+ - Установите MinGW-w64 или Cygwin
+ - Установите PDCurses
+ - Используйте команду:
 
-# 2. Установите PDCurses
-
-# 3. Используйте команду:
+```bash
+gcc -o game.exe main.c game.c -lpdcurses
 
 
 🎯 Управление
