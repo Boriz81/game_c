@@ -36,7 +36,7 @@ int timer_is_time_up(Timer *timer, double limit_seconds) {
 }
 
 void start_game(char *username, int *highScore) {
-    
+    system("clear");    
                 
     init_game();
 
@@ -49,7 +49,7 @@ void start_game(char *username, int *highScore) {
         
 
     while (is_game_running()) {
-        render_game();        
+                
         double elapsed = timer_get_elapsed(&game_timer);
         
         printf("Time: %.2f seconds\n", elapsed);
@@ -133,7 +133,7 @@ void update_game() {
 }
 
 void render_game() {
-    system("clear");
+//    system("clear");
     
     int *ptr = &count;
     
@@ -287,6 +287,26 @@ int loginUser(User *loggedUser) {
 }
 
 void showMenu() {
+    system("clear");
+    // Верхняя граница
+    for (int x = 0; x < MAP_WIDTH + 2; x++) printf("*");
+    printf("\n");
+    
+    // Поле с боковыми границами
+    for (int y = 0; y < MAP_HEIGHT; y++) {
+        printf("*"); // левая граница
+        for (int x = 0; x < MAP_WIDTH; x++) {
+            printf(" ");
+        }
+        printf("*\n"); // правая граница
+    }
+    
+    // Нижняя граница
+    for (int x = 0; x < MAP_WIDTH + 2; x++) printf("*");
+    printf("\n");
+
+
+
     printf("\n === MENU ===\n");
     printf("1. Enter\n");
     printf("2. Zaregatsy\n");
