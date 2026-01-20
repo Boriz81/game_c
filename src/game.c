@@ -295,9 +295,43 @@ void showMenu() {
     // Поле с боковыми границами
     for (int y = 0; y < MAP_HEIGHT; y++) {
         printf("*"); // левая граница
-        for (int x = 0; x < MAP_WIDTH; x++) {
-            printf(" ");
+        if (y == MAP_HEIGHT / 2 - 2) {
+            // Первая строка меню с отступом
+            int padding = (MAP_WIDTH - strlen(" === MENU ===")) / 2;
+            printf("%*s", padding, "");
+            printf(" === MENU ===");
+            printf("%*s", MAP_WIDTH - padding - strlen(" === MENU ==="), "");
+        } else if (y == MAP_HEIGHT / 2 - 1) {
+            // Вторая строка меню
+            int padding = (MAP_WIDTH - strlen("1. Enter")) / 2;
+            printf("%*s", padding, "");
+            printf("1. Enter");
+            printf("%*s", MAP_WIDTH - padding - strlen("1. Enter"), "");
+        } else if (y == MAP_HEIGHT / 2) {
+            // Третья строка меню
+            int padding = (MAP_WIDTH - strlen("2. Zaregatsy")) / 2;
+            printf("%*s", padding, "");
+            printf("2. Zaregatsy");
+            printf("%*s", MAP_WIDTH - padding - strlen("2. Zaregatsy"), "");
+        } else if (y = MAP_HEIGHT / 2 + 1) {
+            // Четвертая строка меню
+            int padding = (MAP_WIDTH - strlen("3. Sign Out")) / 2;
+            printf("%*s", padding, "");
+            printf("3. Sign Out");
+            printf("%*s", MAP_WIDTH - padding - strlen("3. Sign Out"), "");
+        } else if (y == MAP_HEIGHT / 2 + 2) {
+            // Пятая строка меню (строка с "Choise: ")
+            int padding = (MAP_WIDTH - strlen("Choise: ")) / 2;
+            printf("%*s", padding, "");
+            printf("Choise: ");
+            printf("%*s", MAP_WIDTH - padding - strlen("Choise: "), "");
+        } else {
+            // Пустые строки для остальных позиций
+            for (int x = 0; x < MAP_WIDTH; x++) {
+                printf(" ");
+            }
         }
+
         printf("*\n"); // правая граница
     }
     
