@@ -133,7 +133,7 @@ void update_game() {
 }
 
 void render_game() {
-//    system("clear");
+    system("clear");
     
     int *ptr = &count;
     
@@ -297,34 +297,29 @@ void showMenu() {
         printf("*"); // левая граница
         if (y == MAP_HEIGHT / 2 - 2) {
             // Первая строка меню с отступом
-            int padding = (MAP_WIDTH - strlen(" === MENU ===")) / 2;
-            printf("%*s", padding, "");
-            printf(" === MENU ===");
-            printf("%*s", MAP_WIDTH - padding - strlen(" === MENU ==="), "");
+            int padding = (int)(MAP_WIDTH - strlen(" === MENU ===")) / 2;
+            int right_pad = (int)(MAP_WIDTH - padding - strlen(" === MENU ==="));
+            printf("%*s%s%*s", padding, "", " === MENU ===", right_pad, "");
         } else if (y == MAP_HEIGHT / 2 - 1) {
             // Вторая строка меню
-            int padding = (MAP_WIDTH - strlen("1. Enter")) / 2;
-            printf("%*s", padding, "");
-            printf("1. Enter");
-            printf("%*s", MAP_WIDTH - padding - strlen("1. Enter"), "");
+            int padding = (int)(MAP_WIDTH - strlen("1. Enter")) / 2;
+            int right_pad = (int)(MAP_WIDTH - padding - strlen("1. Enter"));
+            printf("%*s%s%*s", padding, "", "1. Enter", right_pad, "");
         } else if (y == MAP_HEIGHT / 2) {
             // Третья строка меню
-            int padding = (MAP_WIDTH - strlen("2. Zaregatsy")) / 2;
-            printf("%*s", padding, "");
-            printf("2. Zaregatsy");
-            printf("%*s", MAP_WIDTH - padding - strlen("2. Zaregatsy"), "");
-        } else if (y = MAP_HEIGHT / 2 + 1) {
+            int padding = (int)(MAP_WIDTH - strlen("2. Zaregatsy")) / 2;
+            int right_pad = (int)(MAP_WIDTH - padding - strlen("2. Zaregatsy"));
+            printf("%*s%s%*s", padding, "", "2. Zaregatsy", right_pad, "");
+        } else if (y == MAP_HEIGHT / 2 + 1) {
             // Четвертая строка меню
-            int padding = (MAP_WIDTH - strlen("3. Sign Out")) / 2;
-            printf("%*s", padding, "");
-            printf("3. Sign Out");
-            printf("%*s", MAP_WIDTH - padding - strlen("3. Sign Out"), "");
+            int padding = (int)(MAP_WIDTH - strlen("3. Sign Out")) / 2;
+            int right_pad = (int)(MAP_WIDTH - padding - strlen("3. Sign Out"));
+            printf("%*s%s%*s", padding, "", "3. Sign Out", right_pad, "");
         } else if (y == MAP_HEIGHT / 2 + 2) {
             // Пятая строка меню (строка с "Choise: ")
-            int padding = (MAP_WIDTH - strlen("Choise: ")) / 2;
-            printf("%*s", padding, "");
-            printf("Choise: ");
-            printf("%*s", MAP_WIDTH - padding - strlen("Choise: "), "");
+            int padding = (int)(MAP_WIDTH - strlen("Choise: ")) / 2;
+            int right_pad = (int)(MAP_WIDTH - padding - strlen("Choise: "));
+            printf("%*s%s%*s", padding, "", "Choise: ", right_pad, "");
         } else {
             // Пустые строки для остальных позиций
             for (int x = 0; x < MAP_WIDTH; x++) {
@@ -338,14 +333,6 @@ void showMenu() {
     // Нижняя граница
     for (int x = 0; x < MAP_WIDTH + 2; x++) printf("*");
     printf("\n");
-
-
-
-    printf("\n === MENU ===\n");
-    printf("1. Enter\n");
-    printf("2. Zaregatsy\n");
-    printf("3. Sign Out\n");
-    printf("Choise: ");
 }
 
 void updateScore(const char *username, int newScore) {
